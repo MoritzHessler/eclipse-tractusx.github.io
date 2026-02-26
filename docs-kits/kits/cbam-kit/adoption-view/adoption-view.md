@@ -25,11 +25,11 @@ CBAM applies to the sectors with the highest carbon leakage risk: **cement, iron
 
 The Eclipse Tractus-X CBAM KIT provides a standardized, interoperable data infrastructure for exchanging CBAM-relevant embedded emissions data across global supply chains. It enables companies to:
 
-- Collect validated emissions data at the material and component level using harmonized methodologies.
-- Automate CBAM data request workflows, reducing administrative burden and ensuring compliance with EU regulations.
+- Collect validated CBAM emissions data at the material and component level using harmonized methodologies.
+- Automate CBAM data request workflows across fragmented system landscapes, reducing redundancies and administrative burden whilst ensuring compliance with CBAM regulations.
 - Integrate upstream and downstream data from suppliers and partners, enabling accurate transmission of embedded emissions data for imported goods.
 - Ensure data sovereignty and security, allowing companies to retain control over sensitive sustainability information while meeting transparency requirements.
-- Facilitate recognition of foreign carbon pricing schemes, promoting fair treatment of non-EU producers.
+~~ - Facilitate recognition of foreign carbon pricing schemes, promoting fair treatment of non-EU producers.~~ //Moritz: i don't see a direct connex from Catena to recognition.
 
 
 ## How CBAM Works in Practice
@@ -381,15 +381,15 @@ This table gives a business-level overview of all properties in the CBAM respons
 
 The CBAM KIT supports two distinct data exchange phases, both implemented as Catena-X notifications: the importer sends a request notification (with the CBAM request data model in the notification body) and the supplier responds with a corresponding response notification (with the CBAM response data model in the body). Partner identification is handled via the Catena-X notification header, not within the data models themselves. The **requestedElements** property in the request allows the importer to scope each exchange precisely — requesting only the data blocks needed for the given phase.
 
-## Ongoing Data Collection During the Year of Import, Quarterly Forecasting and Certificate Purchase
+## Ongoing Data Collection During the Year of Import, Forecasting and Certificate Purchase
 
-Throughout the import year, the importer collects shipment-specific data to support forecasting and to build a traceable record for the final annual declaration. Two types of exchanges are relevant here:
+Throughout the import year, the importer collects shipment-specific data to support forecasting, to obtain the legally required amount of certificates in within the year, and to build a traceable record for the final declaration. Two types of exchanges are relevant here:
 
 **Supplier and installation identification:** When a new supplier is onboarded or an existing one needs to be verified, the importer sends a request scoped to identity and installation data — using **requestedElements** to limit the response to operator and installation identification fields (e.g. `operatorIds`, `operatorName`, `installationIdentification`, `address`). The supplier responds with their own identifiers and the relevant installation details. If the supplier sources from multiple operators, each operator is represented as a separate operator object in the response. If sub-suppliers are involved and registered in Catena-X, the same notification exchange can be applied along the supply chain.
 
 **Composition and installation data for interim forecasting:** During the year, the importer uses transaction-specific data (CN code, net mass, reference period, business transaction identifiers such as invoice number) to send a scoped request for installation and mass flow information. The request references the relevant business transaction via `businessTransactionDetails` and limits the expected response to non-emission fields using **requestedElements** — for example requesting `operatorActivityData`, `installationIdentification`, and `installationActivityData`, but not emission records. The supplier responds with the applicable operator(s), installation(s), and the net mass attributable to the requested transaction. This data supports quarterly forecasting and early certificate purchase based on default emission values or previously known actuals.
 
-The steps of purchasing CO₂ certificates and submitting declarations to the official EU CBAM portal are outside the scope of this KIT.
+Trading CBAM certificates and submitting declarations to the official EU CBAM portal are outside the scope of this KIT.
 
 ## Period Closing Emissions Data Collection
 
@@ -411,9 +411,9 @@ If the direct supplier does not operate the production installation, they must o
 
 The following activities are part of the broader CBAM compliance process but are **not** covered by the data models or exchanges defined in this KIT.
 
-**Submission of the annual CBAM declaration:** Using the verified emission data collected from suppliers via this KIT, the importer submits an annual CBAM declaration to the EU CBAM portal. The declaration states the actual embedded emissions imported during the reporting year and any local carbon taxes already paid by operators in the country of production. Based on this, the final number of CO₂ certificates to be surrendered is calculated. If the importer has purchased too few certificates during the year, additional ones must be acquired; excess certificates are generally not refunded. The preparation and submission of this declaration are outside the scope of this KIT.
+**Submission of the annual CBAM declaration:** Using the verified emission data collected from suppliers via this KIT, the importer submits an annual CBAM declaration to the EU CBAM portal. The declaration states the actual embedded emissions imported during the reporting year and any local carbon taxes already paid by operators in the country of production. Based on this, the final number of CO₂ certificates to be surrendered is calculated. If the importer has purchased too few certificates during the year, additional ones must be acquired / excess certificates can be sold with the authorities. Certificate trade and the preparation and submission of this declaration are outside the scope of this KIT.
 
-**Use of actual emission values in subsequent years:** Once actual emission values for a given installation and CN code combination have been collected via this KIT, the importer can apply them for forecasting and certificate purchasing in subsequent import years, thereby replacing the conservative EU default values. This improves accuracy and typically reduces the cost of early certificate purchases. However, for small or infrequent deliveries, the administrative effort of running the full data exchange may outweigh the benefit; in those cases, relying on published default values may be more practical.
+~~ **Use of actual emission values in subsequent years:** Once actual emission values for a given installation and CN code combination have been collected via this KIT, the importer can apply them for forecasting and certificate purchasing in subsequent import years, thereby replacing the conservative EU default values. This improves accuracy and typically reduces the cost of early certificate purchases. However, for small or infrequent deliveries, the administrative effort of running the full data exchange may outweigh the benefit; in those cases, relying on published default values may be more practical. ~~ // Section not required and too narrow.
 
 ---
 <br/>
